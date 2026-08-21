@@ -1,19 +1,26 @@
 import { CalendarDaysIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
 
-export default function Example() {
+export default function Footer() {
   return (
-    <div className="relative isolate overflow-hidden bg-gray-900 py-16 sm:py-24 lg:py-32">
+    <footer
+      id="contact"
+      aria-labelledby="contact-heading"
+      className="relative isolate overflow-hidden bg-gray-900 py-16 sm:py-24 lg:py-32"
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
           <div className="max-w-xl lg:max-w-lg">
-            <h2 className="text-4xl font-semibold tracking-tight text-white">
+            <h2
+              id="contact-heading"
+              className="text-4xl font-semibold tracking-tight text-white"
+            >
               Subscribe to our newsletter
             </h2>
             <p className="mt-4 text-lg text-gray-300">
               Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing
               velit quis. Duis tempor incididunt dolore.
             </p>
-            <div className="mt-6 flex max-w-md gap-x-4">
+            <form className="mt-6 flex max-w-md gap-x-4">
               <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
@@ -32,7 +39,7 @@ export default function Example() {
               >
                 Subscribe
               </button>
-            </div>
+            </form>
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
             <div className="flex flex-col items-start">
@@ -80,6 +87,6 @@ export default function Example() {
           className="aspect-1155/678 w-288.75 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
         />
       </div>
-    </div>
+    </footer>
   );
 }

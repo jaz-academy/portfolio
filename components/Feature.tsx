@@ -25,19 +25,26 @@ const features = [
   },
 ];
 
-export default function Example() {
+export default function Feature() {
   return (
-    <div className="overflow-hidden bg-gray-900 py-24 sm:py-32">
+    <section
+      id="skills"
+      aria-labelledby="skills-heading"
+      className="overflow-hidden bg-gray-900 py-24 sm:py-32"
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
           <div className="lg:pt-4 lg:pr-8">
             <div className="lg:max-w-lg">
-              <h2 className="text-base/7 font-semibold text-indigo-400">
-                Deploy faster
-              </h2>
-              <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl">
-                A better workflow
+              <p className="text-base/7 font-semibold text-indigo-400">
+                Skills
               </p>
+              <h2
+                id="skills-heading"
+                className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl"
+              >
+                A better workflow
+              </h2>
               <p className="mt-6 text-lg/8 text-gray-300">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 Maiores impedit perferendis suscipit eaque, iste dolor
@@ -68,6 +75,6 @@ export default function Example() {
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }

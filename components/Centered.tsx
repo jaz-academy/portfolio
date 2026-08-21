@@ -32,17 +32,24 @@ const features = [
   },
 ];
 
-export default function Example() {
+export default function Centered() {
   return (
-    <div className="bg-gray-900 py-24 sm:py-32">
+    <section
+      id="about"
+      aria-labelledby="about-heading"
+      className="bg-gray-900 py-24 sm:py-32"
+    >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base/7 font-semibold text-indigo-400">
+          <p className="text-base/7 font-semibold text-indigo-400">
             Deploy faster
-          </h2>
-          <p className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl lg:text-balance">
-            Everything you need to deploy your app
           </p>
+          <h2
+            id="about-heading"
+            className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl lg:text-balance"
+          >
+            Everything you need to deploy your app
+          </h2>
           <p className="mt-6 text-lg/8 text-gray-300">
             Quis tellus eget adipiscing convallis sit sit eget aliquet quis.
             Suspendisse eget egestas a elementum pulvinar et feugiat blandit at.
@@ -70,6 +77,6 @@ export default function Example() {
           </dl>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

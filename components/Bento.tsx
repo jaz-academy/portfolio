@@ -1,13 +1,20 @@
-export default function Example() {
+export default function Bento() {
   return (
-    <div className="bg-gray-900 py-24 sm:py-32">
+    <section
+      id="projects"
+      aria-labelledby="projects-heading"
+      className="bg-gray-900 py-24 sm:py-32"
+    >
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
         <h2 className="text-center text-base/7 font-semibold text-indigo-400">
           Deploy faster
         </h2>
-        <p className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">
+        <h2
+          id="projects-heading"
+          className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl"
+        >
           Everything you need to deploy your app
-        </p>
+        </h2>
         <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
           <div className="relative lg:row-span-2">
             <div className="absolute inset-px rounded-lg bg-gray-800 lg:rounded-l-4xl" />
@@ -111,6 +118,6 @@ export default function Example() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Feature from "@/components/Feature";
 import Stats from "@/components/Stats";
@@ -8,11 +9,14 @@ import Footer from "@/components/Footer";
 export default function Home() {
   return (
     <>
-      <Hero />
-      <Feature />
-      <Stats />
-      <Bento />
-      <Centered />
+      <Header />
+      <main>
+        <Hero />
+        <Feature />
+        <Stats />
+        <Bento />
+        <Centered />
+      </main>
       <Footer />
     </>
   );
