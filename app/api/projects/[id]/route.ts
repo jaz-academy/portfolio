@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/utils/supabase/server';
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const supabase = await createClient();
     const { id } = await params;
     
     if (!id) {
@@ -42,12 +43,13 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const supabase = await createClient();
     const { id } = await params;
     const body = await request.json();
 
     const { data: updatedProject, error } = await supabase
       .from('projects')
-      .update(body) // Update fields based on provided JSON
+      .update(body)
       .eq('id', id)
       .select()
       .single();
@@ -68,6 +70,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const supabase = await createClient();
     const { id } = await params;
 
     const { error } = await supabase
@@ -80,7 +83,6 @@ export async function DELETE(
       return NextResponse.json({ error: 'Failed to delete project' }, { status: 500 });
     }
 
-    // Status 204 No Content untuk success delete tanpa response body
     return new NextResponse(null, { status: 204 });
   } catch (err) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

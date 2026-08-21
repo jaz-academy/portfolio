@@ -23,7 +23,9 @@ export default function DashboardLayout({
       {/* Sidebar */}
       <div className="w-64 border-r border-white/10 bg-gray-900">
         <div className="flex h-16 shrink-0 items-center px-6">
-          <span className="text-xl font-bold text-white">Admin Panel</span>
+          <Link href={"/"}>
+            <span className="text-xl font-bold text-white">Admin Panel</span>
+          </Link>
         </div>
         <nav className="flex flex-1 flex-col px-4 py-4">
           <ul role="list" className="flex flex-1 flex-col gap-y-7">
