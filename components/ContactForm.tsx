@@ -17,7 +17,9 @@ const initialFormData: ContactFormData = {
   message: "",
 };
 
-export default function ContactForm() {
+export default async function ContactForm() {
+  const profile = await getProfileData();
+  if (!profile) return null;
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");

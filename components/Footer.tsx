@@ -2,7 +2,9 @@ import { EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { profile, socialLinks } from "@/data/portfolio";
 import ContactForm from "@/components/ContactForm";
 
-export default function Footer() {
+export default async function Footer() {
+  const profile = await getProfileData();
+  if (!profile) return null;
   return (
     <footer
       id="contact"
@@ -41,7 +43,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3 px-[36%] mt-14">
-          {socialLinks.map((link) => (
+          {(profile.socialLinks || []).map((link) => (
             <div className="flex flex-col items-center" key={link.id}>
               <div className="rounded-md bg-white/5 py-2 px-4 ring-1 ring-white/10">
                 <span className="text-xl text-white" aria-hidden="true">

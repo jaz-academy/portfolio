@@ -3,14 +3,14 @@ import { logout } from "@/app/login/actions";
 import {
   FolderIcon,
   AcademicCapIcon,
-  BriefcaseIcon,
+  UserCircleIcon,
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Projects", href: "/dashboard/projects", icon: FolderIcon },
-  { name: "Skills", href: "/dashboard/skills", icon: AcademicCapIcon },
-  { name: "Experience", href: "/dashboard/experience", icon: BriefcaseIcon },
+  { name: 'Projects', href: '/dashboard/projects', icon: FolderIcon },
+  { name: 'Learning', href: '/dashboard/learning', icon: AcademicCapIcon },
+  { name: 'Profile', href: '/dashboard/profile', icon: UserCircleIcon },
 ];
 
 export default function DashboardLayout({

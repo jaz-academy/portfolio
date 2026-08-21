@@ -1,6 +1,7 @@
 import { learning } from "@/data/portfolio";
 
-export default function Centered() {
+export default async function Centered() {
+  const learning = await getLearningData();
   return (
     <section
       id="skills"

@@ -1,6 +1,8 @@
 import { profile } from "@/data/portfolio";
 
-export default function Stats() {
+export default async function Stats() {
+  const profile = await getProfileData();
+  if (!profile) return null;
   return (
     <section
       id="experience"
@@ -12,7 +14,7 @@ export default function Stats() {
           Collaboration highlights
         </h2>
         <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
-          {profile.stats.map((stat) => (
+          {profile.stats.map((stat: any) => (
             <div
               key={stat.id}
               className="mx-auto flex max-w-xs flex-col gap-y-4"

@@ -1,6 +1,8 @@
 import { profile } from "@/data/portfolio";
 
-export default function Hero() {
+export default async function Hero() {
+  const profile = await getProfileData();
+  if (!profile) return null;
   return (
     <section id="home" aria-labelledby="hero-heading" className="bg-gray-900">
       <div className="relative isolate px-6 pt-14 lg:px-8">

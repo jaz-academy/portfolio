@@ -1,6 +1,8 @@
 import { profile } from "@/data/portfolio";
 
-export default function Feature() {
+export default async function Feature() {
+  const profile = await getProfileData();
+  if (!profile) return null;
   return (
     <section
       id="about"
