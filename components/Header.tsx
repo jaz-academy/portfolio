@@ -2,7 +2,12 @@
 
 import { useEffect, useState, type MouseEvent } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+  MoonIcon,
+  SunIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 const navigation = [
   { name: "About", href: "#about" },
@@ -15,6 +20,7 @@ const navigation = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 16);
@@ -24,6 +30,37 @@ export default function Header() {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const themeTimeout = window.setTimeout(() => {
+      const savedTheme = window.localStorage.getItem("portfolio-theme");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      const shouldUseDarkMode = savedTheme
+        ? savedTheme === "dark"
+        : prefersDark;
+
+      setIsDarkMode(shouldUseDarkMode);
+    }, 0);
+
+    return () => window.clearTimeout(themeTimeout);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDarkMode);
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    const nextDarkMode = !isDarkMode;
+
+    setIsDarkMode(nextDarkMode);
+    document.documentElement.classList.toggle("dark", nextDarkMode);
+    window.localStorage.setItem(
+      "portfolio-theme",
+      nextDarkMode ? "dark" : "light",
+    );
+  };
 
   const handleNavigationClick = (event: MouseEvent<HTMLAnchorElement>) => {
     const href = event.currentTarget.getAttribute("href");
@@ -95,10 +132,24 @@ export default function Header() {
             </ul>
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+            <button
+              type="button"
+              onClick={toggleDarkMode}
+              aria-label={
+                isDarkMode ? "Aktifkan light mode" : "Aktifkan dark mode"
+              }
+              className="mr-6 rounded-md px-4 text-white transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+            >
+              {isDarkMode ? (
+                <SunIcon aria-hidden="true" className="size-5" />
+              ) : (
+                <MoonIcon aria-hidden="true" className="size-5" />
+              )}
+            </button>
             <a
               href="#contact"
               onClick={handleNavigationClick}
-              className="text-sm/6 font-semibold text-white"
+              className="text-sm/6 font-semibold text-white my-4"
             >
               Login <span aria-hidden="true">&rarr;</span>
             </a>
@@ -129,6 +180,21 @@ export default function Header() {
                 <XMarkIcon aria-hidden="true" className="size-6" />
               </button>
             </div>
+            <button
+              type="button"
+              onClick={toggleDarkMode}
+              aria-label={
+                isDarkMode ? "Aktifkan light mode" : "Aktifkan dark mode"
+              }
+              className="mt-8 flex items-center gap-3 rounded-lg px-3 py-3 text-base font-semibold text-white hover:bg-white/5"
+            >
+              {isDarkMode ? (
+                <SunIcon aria-hidden="true" className="size-5" />
+              ) : (
+                <MoonIcon aria-hidden="true" className="size-5" />
+              )}
+              {isDarkMode ? "Light mode" : "Dark mode"}
+            </button>
             <nav
               id="mobile-navigation"
               aria-label="Mobile navigation"
