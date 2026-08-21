@@ -7,27 +7,27 @@ import {
 
 const features = [
   {
-    name: "Push to deploy",
+    name: "Jaz Academy Multimedia",
     description:
-      "Morbi viverra dui mi arcu sed. Tellus semper adipiscing suspendisse semper morbi. Odio urna massa nunc massa.",
+      "Pelatihan Multimedia & Content Creator dengan fokus pada produksi video, fotografi dasar, dan komunikasi visual.",
     icon: CloudArrowUpIcon,
   },
   {
-    name: "SSL certificates",
+    name: "Udemy • CapCut & Premiere Pro",
     description:
-      "Sit quis amet rutrum tellus ullamcorper ultricies libero dolor eget. Sem sodales gravida quam turpis enim lacus amet.",
+      "Kursus editing yang melatih cutting, audio mixing, color correction, caption, dan format video untuk berbagai platform.",
     icon: LockClosedIcon,
   },
   {
-    name: "Simple queues",
+    name: "MCC • Content strategy course",
     description:
-      "Quisque est vel vulputate cursus. Risus proin diam nunc commodo. Lobortis auctor congue commodo diam neque.",
+      "Belajar menyusun content pillar, membuat kalender konten, membaca insight, dan mengembangkan ide yang konsisten.",
     icon: ArrowPathIcon,
   },
   {
-    name: "Advanced security",
+    name: "Jazmedia • Visual storytelling",
     description:
-      "Arcu egestas dolor vel iaculis in ipsum mauris. Tincidunt mattis aliquet hac quis. Id hac maecenas ac donec pharetra eget.",
+      "Mempraktikkan dasar scriptwriting, shot composition, camera movement, dan storytelling untuk video pendek.",
     icon: FingerPrintIcon,
   },
 ];
@@ -35,25 +35,25 @@ const features = [
 export default function Centered() {
   return (
     <section
-      id="about"
-      aria-labelledby="about-heading"
+      id="skills"
+      aria-labelledby="skills-heading"
       className="bg-gray-900 py-24 sm:py-32"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <p className="text-base/7 font-semibold text-indigo-400">
-            Deploy faster
+            Education & learning
           </p>
           <h2
-            id="about-heading"
+            id="skills-heading"
             className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl lg:text-balance"
           >
-            Everything you need to deploy your app
+            Skills built through school and practice
           </h2>
           <p className="mt-6 text-lg/8 text-gray-300">
-            Quis tellus eget adipiscing convallis sit sit eget aliquet quis.
-            Suspendisse eget egestas a elementum pulvinar et feugiat blandit at.
-            In mi viverra elit nunc.
+            I am currently a multimedia student, building a practical foundation
+            in visual communication while sharpening my craft through courses,
+            personal projects, and collaborative productions.
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">

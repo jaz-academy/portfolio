@@ -5,10 +5,11 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "Marketplace", href: "#" },
-  { name: "Company", href: "#" },
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Skills", href: "#skills" },
+  { name: "Experience", href: "#experience" },
+  { name: "Contact", href: "#contact" },
 ];
 
 export default function Header() {
@@ -25,14 +26,9 @@ export default function Header() {
             <a
               href="#home"
               aria-label="Go to home section"
-              className="-m-1.5 p-1.5"
+              className="-m-1.5 p-1.5 text-lg font-semibold text-white"
             >
-              <span className="sr-only">Your Name</span>
-              <img
-                alt=""
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                className="h-8 w-auto"
-              />
+              Raka<span className="text-indigo-400">.</span>
             </a>
           </div>
           <div className="flex lg:hidden">
@@ -48,19 +44,22 @@ export default function Header() {
             </button>
           </div>
           <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-sm/6 font-semibold text-white"
-              >
-                {item.name}
-              </a>
-            ))}
+            <ul className="flex items-center gap-x-8">
+              {navigation.map((item) => (
+                <li key={item.name}>
+                  <a
+                    href={item.href}
+                    className="text-sm/6 font-semibold text-white"
+                  >
+                    {item.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <a href="#" className="text-sm/6 font-semibold text-white">
-              Log in <span aria-hidden="true">&rarr;</span>
+              Login <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
         </nav>
@@ -75,14 +74,9 @@ export default function Header() {
               <a
                 href="#home"
                 aria-label="Go to home section"
-                className="-m-1.5 p-1.5"
+                className="-m-1.5 p-1.5 text-lg font-semibold text-white"
               >
-                <span className="sr-only">Your Name</span>
-                <img
-                  alt=""
-                  src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                  className="h-8 w-auto"
-                />
+                Raka<span className="text-indigo-400">.</span>
               </a>
               <button
                 type="button"
@@ -100,22 +94,27 @@ export default function Header() {
             >
               <div className="-my-6 divide-y divide-white/10">
                 <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
-                    >
-                      {item.name}
-                    </a>
-                  ))}
+                  <ul>
+                    {navigation.map((item) => (
+                      <li key={item.name}>
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
+                        >
+                          {item.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
                 <div className="py-6">
                   <a
-                    href="#"
+                    href="#contact"
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
                   >
-                    Log in
+                    Let&apos;s work together
                   </a>
                 </div>
               </div>

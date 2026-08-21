@@ -1,4 +1,4 @@
-import { CalendarDaysIcon, HandRaisedIcon } from "@heroicons/react/24/outline";
+import { EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
 
 export default function Footer() {
   return (
@@ -14,62 +14,85 @@ export default function Footer() {
               id="contact-heading"
               className="text-4xl font-semibold tracking-tight text-white"
             >
-              Subscribe to our newsletter
+              Let&apos;s make something worth watching.
             </h2>
             <p className="mt-4 text-lg text-gray-300">
-              Nostrud amet eu ullamco nisi aute in ad minim nostrud adipisicing
-              velit quis. Duis tempor incididunt dolore.
+              Available for freelance editing, social content, and creative
+              collaborations. Reach out and tell me what you are building.
             </p>
-            <form className="mt-6 flex max-w-md gap-x-4">
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                required
-                placeholder="Enter your email"
-                autoComplete="email"
-                className="min-w-0 flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-              />
-              <button
-                type="submit"
-                className="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+            <address className="mt-6 flex flex-col gap-3 not-italic text-base text-gray-300">
+              <a
+                className="flex items-center gap-3 hover:text-white"
+                href="mailto:hello@rakaaditya.com"
               >
-                Subscribe
-              </button>
-            </form>
+                <EnvelopeIcon aria-hidden="true" className="size-5" />
+                hello@rakaaditya.com
+              </a>
+              <span className="flex items-center gap-3">
+                <MapPinIcon aria-hidden="true" className="size-5" />
+                Jakarta, Indonesia
+              </span>
+            </address>
           </div>
-          <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
+          <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3 lg:pt-2 mt-6">
             <div className="flex flex-col items-start">
-              <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
-                <CalendarDaysIcon
-                  aria-hidden="true"
-                  className="size-6 text-white"
-                />
+              <div className="rounded-md bg-white/5 py-2 px-4 ring-1 ring-white/10">
+                <span className="text-xl text-white" aria-hidden="true">
+                  in
+                </span>
               </div>
               <dt className="mt-4 text-base font-semibold text-white">
-                Weekly articles
+                LinkedIn
               </dt>
               <dd className="mt-2 text-base/7 text-gray-400">
-                Non laboris consequat cupidatat laborum magna. Eiusmod non irure
-                cupidatat duis commodo amet.
+                <a
+                  href="https://www.linkedin.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white"
+                >
+                  Connect professionally
+                </a>
               </dd>
             </div>
             <div className="flex flex-col items-start">
-              <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
-                <HandRaisedIcon
-                  aria-hidden="true"
-                  className="size-6 text-white"
-                />
+              <div className="rounded-md bg-white/5 py-2 px-4 ring-1 ring-white/10">
+                <span className="text-xl text-white" aria-hidden="true">
+                  ◎
+                </span>
               </div>
               <dt className="mt-4 text-base font-semibold text-white">
-                No spam
+                Instagram
               </dt>
               <dd className="mt-2 text-base/7 text-gray-400">
-                Officia excepteur ullamco ut sint duis proident non adipisicing.
-                Voluptate incididunt anim.
+                <a
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white"
+                >
+                  See behind the scenes
+                </a>
+              </dd>
+            </div>
+            <div className="flex flex-col items-start">
+              <div className="rounded-md bg-white/5 py-2 px-5 ring-1 ring-white/10">
+                <span className="text-xl text-white" aria-hidden="true">
+                  t
+                </span>
+              </div>
+              <dt className="mt-4 text-base font-semibold text-white">
+                Tiktok
+              </dt>
+              <dd className="mt-2 text-base/7 text-gray-400">
+                <a
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white"
+                >
+                  My Daily Life and Work
+                </a>
               </dd>
             </div>
           </dl>

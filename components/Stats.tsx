@@ -1,7 +1,7 @@
 const stats = [
-  { id: 1, name: "Transactions every 24 hours", value: "44 million" },
-  { id: 2, name: "Assets under holding", value: "$119 trillion" },
-  { id: 3, name: "New users annually", value: "46,000" },
+  { id: 1, name: "Personal clients", value: "18+" },
+  { id: 2, name: "Companies collaborated with", value: "9" },
+  { id: 3, name: "Creative partners", value: "24" },
 ];
 
 export default function Stats() {
@@ -13,7 +13,7 @@ export default function Stats() {
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <h2 id="experience-heading" className="sr-only">
-          Experience highlights
+          Collaboration highlights
         </h2>
         <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
           {stats.map((stat) => (

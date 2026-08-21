@@ -6,21 +6,21 @@ import {
 
 const features = [
   {
-    name: "Push to deploy.",
+    name: "Creative direction",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.",
+      "I develop visual concepts, moodboards, and content plans that give every story a clear point of view.",
     icon: CloudArrowUpIcon,
   },
   {
-    name: "SSL certificates.",
+    name: "Video editing",
     description:
-      "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.",
+      "From rough cut to final export, I edit short-form and long-form videos with rhythm, pacing, sound, and captions in mind.",
     icon: LockClosedIcon,
   },
   {
-    name: "Database backups.",
+    name: "Social content",
     description:
-      "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
+      "I create platform-ready reels, carousels, and behind-the-scenes content that feels native to each audience.",
     icon: ServerIcon,
   },
 ];
@@ -28,8 +28,8 @@ const features = [
 export default function Feature() {
   return (
     <section
-      id="skills"
-      aria-labelledby="skills-heading"
+      id="about"
+      aria-labelledby="about-heading"
       className="overflow-hidden bg-gray-900 py-24 sm:py-32"
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -37,18 +37,19 @@ export default function Feature() {
           <div className="lg:pt-4 lg:pr-8">
             <div className="lg:max-w-lg">
               <p className="text-base/7 font-semibold text-indigo-400">
-                Skills
+                About me
               </p>
               <h2
-                id="skills-heading"
+                id="about-heading"
                 className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl"
               >
-                A better workflow
+                Stories with a point of view
               </h2>
               <p className="mt-6 text-lg/8 text-gray-300">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Maiores impedit perferendis suscipit eaque, iste dolor
-                cupiditate blanditiis ratione.
+                As a content creator and video editor, I collaborate from the
+                first idea to the final upload. My work combines visual
+                storytelling, intentional editing, and a practical understanding
+                of how people discover content online.
               </p>
               <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-400 lg:max-w-none">
                 {features.map((feature) => (
@@ -67,8 +68,8 @@ export default function Feature() {
             </div>
           </div>
           <img
-            alt="Product screenshot"
-            src="https://tailwindcss.com/plus-assets/img/component-images/dark-project-app-screenshot.png"
+            alt="Video editor working with a camera and laptop"
+            src="https://media.istockphoto.com/id/1434250824/id/foto/pemuda-mengedit-video-di-kantor-pusat.jpg?s=1024x1024&w=is&k=20&c=nSEcO_8XAbUqZA4wu3UQUJIPc6lCsJ8zvwrnf1LoJ-M="
             width={2432}
             height={1442}
             className="w-3xl max-w-none rounded-xl shadow-xl ring-1 ring-white/10 sm:w-228 md:-ml-4 lg:ml-0"
