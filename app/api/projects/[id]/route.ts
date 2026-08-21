@@ -34,6 +34,7 @@ export async function GET(
 
     return NextResponse.json({ data: project }, { status: 200 });
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
@@ -61,6 +62,7 @@ export async function PATCH(
 
     return NextResponse.json({ data: updatedProject }, { status: 200 });
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
@@ -85,6 +87,7 @@ export async function DELETE(
 
     return new NextResponse(null, { status: 204 });
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

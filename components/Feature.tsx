@@ -25,7 +25,7 @@ export default async function Feature() {
               </h2>
               <p className="mt-6 text-lg/8 text-gray-300">{profile.longBio}</p>
               <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-400 lg:max-w-none">
-                {profile.summaries.map((summary: any) => {
+                {profile.summaries.map((summary: { name: string, description: string, icon_name: string }) => {
                   const Icon = getIconComponent(summary.icon_name);
                   return (
                   <div key={summary.name} className="relative pl-9">
@@ -42,7 +42,8 @@ export default async function Feature() {
               </dl>
             </div>
           </div>
-          <img
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+<img
             alt="Video editor working with a camera and laptop"
             src="https://media.istockphoto.com/id/1434250824/id/foto/pemuda-mengedit-video-di-kantor-pusat.jpg?s=1024x1024&w=is&k=20&c=nSEcO_8XAbUqZA4wu3UQUJIPc6lCsJ8zvwrnf1LoJ-M="
             width={2432}

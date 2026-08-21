@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-export default function LearningForm({ initialData }: { initialData?: any }) {
+export default function LearningForm({ initialData }: { initialData?: { id: number; name: string; description: string; icon_name: string } }) {
   const router = useRouter()
   const isEdit = !!initialData
   const [loading, setLoading] = useState(false)

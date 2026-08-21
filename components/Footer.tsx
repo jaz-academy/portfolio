@@ -44,7 +44,7 @@ export default async function Footer() {
           </div>
         </div>
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3 px-[36%] mt-14">
-          {(profile.socialLinks || []).map((link: any) => {
+          {(profile.socialLinks || []).map((link: { id: number, href: string, icon_name: string }) => {
             const Icon = getIconComponent(link.icon_name);
             return (
             <div className="flex flex-col items-center" key={link.id}>

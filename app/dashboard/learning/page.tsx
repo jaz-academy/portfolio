@@ -11,6 +11,7 @@ async function getLearning() {
     const json = await res.json();
     return json.data || [];
   } catch (error) {
+    console.error(error);
     return [];
   }
 }
@@ -57,7 +58,7 @@ export default async function AdminLearningPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/10 bg-gray-900">
-                  {learningList.map((item: any) => (
+                  {learningList.map((item: { id: number, name: string, description: string, icon_name: string }) => (
                     <tr key={item.id}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-6">
                         {item.name}

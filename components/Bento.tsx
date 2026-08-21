@@ -17,15 +17,15 @@ export default async function Bento() {
   const rawProjects = await getProjects();
   
   // Format data dari database (snake_case) ke format UI (camelCase)
-  const projects = rawProjects.map((p: any) => ({
+  const projects = rawProjects.map((p: { id: number, title: string, description: string, image: string, featured: boolean, year: number, image_alt: string, categories?: { name: string } }) => ({
     ...p,
     imageAlt: p.image_alt,
     category: p.categories?.name || 'Uncategorized',
   }));
 
   const galleryProjects = [
-    ...projects.filter((project: any) => project.featured),
-    ...projects.filter((project: any) => !project.featured),
+    ...projects.filter((project: { id: number, title: string, description: string, image: string, categories?: { name: string } }) => project.featured),
+    ...projects.filter((project: { id: number, title: string, description: string, image: string, categories?: { name: string } }) => !project.featured),
   ];
   return (
     <section

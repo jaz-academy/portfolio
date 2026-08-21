@@ -9,6 +9,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
     if (error) return NextResponse.json({ error: 'Not found' }, { status: 404 });
     return NextResponse.json({ data }, { status: 200 });
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
@@ -22,6 +23,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     return NextResponse.json({ data }, { status: 200 });
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
@@ -34,6 +36,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
     return new NextResponse(null, { status: 204 });
   } catch (err) {
+    console.error(err);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

@@ -7,8 +7,8 @@ export default function ProjectForm({
   initialData, 
   categories 
 }: { 
-  initialData?: any
-  categories: any[]
+  initialData?: { id: number; title: string; description: string; image: string; year: number; category_id: number; featured: boolean }
+  categories: { id: number; name: string }[]
 }) {
   const router = useRouter()
   const isEdit = !!initialData

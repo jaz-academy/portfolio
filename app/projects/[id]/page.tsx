@@ -23,6 +23,7 @@ async function getProject(id: string) {
       category: json.data.categories?.name || 'Uncategorized'
     };
   } catch (error) {
+    console.error(error);
     return null;
   }
 }
@@ -82,7 +83,8 @@ export default async function ProjectDetailPage({
         </header>
 
         <figure className="mt-12 overflow-hidden rounded-2xl">
-          <img
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+<img
             src={project.image}
             alt={project.imageAlt}
             className="h-auto max-h-[70vh] w-full object-cover"

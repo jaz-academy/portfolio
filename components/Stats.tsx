@@ -14,7 +14,7 @@ export default async function Stats() {
           Collaboration highlights
         </h2>
         <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
-          {profile.stats.map((stat: any) => (
+          {profile.stats.map((stat: { id: number; name: string; value: string }) => (
             <div
               key={stat.id}
               className="mx-auto flex max-w-xs flex-col gap-y-4"

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
-export default function ProfileForm({ initialData }: { initialData: any }) {
+export default function ProfileForm({ initialData }: { initialData: { name: string; role: string; location: string; email: string; whatsapp: string; linkCv: string; shortBio: string; longBio: string; availability: string; skill: string; summaries: object[]; stats: object[]; socialLinks: object[] } }) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   

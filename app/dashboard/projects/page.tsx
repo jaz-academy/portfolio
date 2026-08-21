@@ -64,7 +64,7 @@ export default async function AdminProjectsPage() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/10 bg-gray-900">
-                  {projects.map((project: any) => (
+                  {projects.map((project: { id: number, title: string, category_id: number, featured: boolean, categories?: { name: string } }) => (
                     <tr key={project.id}>
                       <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-white sm:pl-6">
                         {project.title}

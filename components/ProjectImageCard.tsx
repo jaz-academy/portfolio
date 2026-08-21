@@ -15,7 +15,8 @@ export default function ProjectImageCard({
       className={`group relative min-h-80 overflow-hidden rounded-lg ${className}`}
     >
       <Link href={`/projects/${project.id}`}>
-        <img
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+<img
           src={project.image}
           alt={project.imageAlt}
           className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
