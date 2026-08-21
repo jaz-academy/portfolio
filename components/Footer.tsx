@@ -1,5 +1,6 @@
 import { EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { profile, socialLinks } from "@/data/portfolio";
+import ContactForm from "@/components/ContactForm";
 
 export default function Footer() {
   return (
@@ -17,11 +18,11 @@ export default function Footer() {
             >
               Let&apos;s make something worth watching.
             </h2>
-            <p className="mt-4 text-lg text-gray-300">
+            <p className="mt-8 text-lg text-gray-300">
               Available for freelance editing, social content, and creative
               collaborations. Reach out and tell me what you are building.
             </p>
-            <address className="mt-6 flex flex-col gap-3 not-italic text-base text-gray-300">
+            <address className="mt-6 flex flex-col gap-4 not-italic text-base text-gray-300">
               <a
                 className="flex items-center gap-3 hover:text-white"
                 href="mailto:hello@rakaaditya.com"
@@ -35,30 +36,27 @@ export default function Footer() {
               </span>
             </address>
           </div>
-          <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3 lg:pt-2 mt-6">
-            {socialLinks.map((link) => (
-              <div className="flex flex-col items-start" key={link.id}>
-                <div className="rounded-md bg-white/5 py-2 px-4 ring-1 ring-white/10">
-                  <span className="text-xl text-white" aria-hidden="true">
-                    {link.icon && <link.icon className="size-5" />}
-                  </span>
-                </div>
-                <dt className="mt-4 text-base font-semibold text-white">
-                  {link.label}
-                </dt>
-                <dd className="mt-2 text-base/7 text-gray-400">
+          <div className="">
+            <ContactForm />
+          </div>
+        </div>
+        <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3 px-[36%] mt-14">
+          {socialLinks.map((link) => (
+            <div className="flex flex-col items-center" key={link.id}>
+              <div className="rounded-md bg-white/5 py-2 px-4 ring-1 ring-white/10">
+                <span className="text-xl text-white" aria-hidden="true">
                   <a
                     href={link.href}
                     target="_blank"
                     rel="noreferrer"
                     className="hover:text-white"
                   >
-                    {link.description}
+                    {link.icon && <link.icon className="size-5" />}
                   </a>
-                </dd>
+                </span>
               </div>
-            ))}
-          </dl>
+            </div>
+          ))}
         </div>
       </div>
       <div
