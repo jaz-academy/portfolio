@@ -7,6 +7,9 @@ import Centered from "@/components/Centered";
 import Footer from "@/components/Footer";
 
 export default function Home() {
+  // error page test
+  // throw new Error("Testing portfolio error boundary");
+
   return (
     <>
       <Header />
