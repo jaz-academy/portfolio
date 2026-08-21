@@ -1,12 +1,32 @@
 import ProjectImageCard from "@/components/ProjectImageCard";
-import { getFeaturedProjects, projects } from "@/data/portfolio";
 
-const galleryProjects = [
-  ...getFeaturedProjects(projects),
-  ...projects.filter((project) => !project.featured),
-];
+async function getProjects() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/projects`, {
+      cache: 'no-store' // Agar selalu mendapatkan data terbaru
+    });
+    const json = await res.json();
+    return json.data || [];
+  } catch (error) {
+    console.error('Failed to fetch projects', error);
+    return [];
+  }
+}
 
-export default function Bento() {
+export default async function Bento() {
+  const rawProjects = await getProjects();
+  
+  // Format data dari database (snake_case) ke format UI (camelCase)
+  const projects = rawProjects.map((p: any) => ({
+    ...p,
+    imageAlt: p.image_alt,
+    category: p.categories?.name || 'Uncategorized',
+  }));
+
+  const galleryProjects = [
+    ...projects.filter((project: any) => project.featured),
+    ...projects.filter((project: any) => !project.featured),
+  ];
   return (
     <section
       id="projects"

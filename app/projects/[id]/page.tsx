@@ -1,4 +1,3 @@
-import { projects } from "@/data/portfolio";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
@@ -8,15 +7,29 @@ interface ProjectDetailPageProps {
   }>;
 }
 
-export function generateStaticParams() {
-  return projects.map((project) => ({
-    id: String(project.id),
-  }));
+async function getProject(id: string) {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/projects/${id}`, {
+      cache: 'no-store'
+    });
+    if (!res.ok) return null;
+    const json = await res.json();
+    if (!json.data) return null;
+    
+    // Map snake_case ke camelCase
+    return {
+      ...json.data,
+      imageAlt: json.data.image_alt,
+      category: json.data.categories?.name || 'Uncategorized'
+    };
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: ProjectDetailPageProps) {
   const { id } = await params;
-  const project = projects.find((item) => item.id === Number(id));
+  const project = await getProject(id);
 
   if (!project) {
     return {
@@ -34,16 +47,11 @@ export default async function ProjectDetailPage({
   params,
 }: ProjectDetailPageProps) {
   const { id } = await params;
-  const project = projects.find((item) => item.id === Number(id));
+  const project = await getProject(id);
 
   if (!project) {
     notFound();
   }
-
-  //   simulasi loading
-  await new Promise((resolve) => {
-    setTimeout(resolve, 2000);
-  });
 
   return (
     <main className="min-h-screen bg-gray-900 px-6 py-32 text-white">

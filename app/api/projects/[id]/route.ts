@@ -12,8 +12,6 @@ export async function GET(
       return NextResponse.json({ error: 'Missing ID parameter' }, { status: 400 });
     }
 
-    console.log('Fetching project with ID:', id);
-
     const { data: project, error } = await supabase
       .from('projects')
       .select(`
@@ -27,25 +25,64 @@ export async function GET(
       .single();
 
     if (error) {
-      if (error.code === 'PGRST116') { // Error code untuk data tidak ditemukan
-        return NextResponse.json(
-          { error: 'Project not found' },
-          { status: 404 }
-        );
+      if (error.code === 'PGRST116') {
+        return NextResponse.json({ error: 'Project not found' }, { status: 404 });
       }
-      console.error('Supabase error:', error);
-      return NextResponse.json(
-        { error: 'Failed to fetch project' },
-        { status: 500 }
-      );
+      return NextResponse.json({ error: 'Failed to fetch project' }, { status: 500 });
     }
 
     return NextResponse.json({ data: project }, { status: 200 });
   } catch (err) {
-    console.error('Server error:', err);
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
+export async function PATCH(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+    const body = await request.json();
+
+    const { data: updatedProject, error } = await supabase
+      .from('projects')
+      .update(body) // Update fields based on provided JSON
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase update error:', error);
+      return NextResponse.json({ error: 'Failed to update project' }, { status: 500 });
+    }
+
+    return NextResponse.json({ data: updatedProject }, { status: 200 });
+  } catch (err) {
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
+
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+
+    const { error } = await supabase
+      .from('projects')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error('Supabase delete error:', error);
+      return NextResponse.json({ error: 'Failed to delete project' }, { status: 500 });
+    }
+
+    // Status 204 No Content untuk success delete tanpa response body
+    return new NextResponse(null, { status: 204 });
+  } catch (err) {
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
