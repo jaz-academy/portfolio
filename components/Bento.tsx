@@ -24,8 +24,8 @@ export default async function Bento() {
   }));
 
   const galleryProjects = [
-    ...projects.filter((project: { id: number, title: string, description: string, image: string, categories?: { name: string } }) => project.featured),
-    ...projects.filter((project: { id: number, title: string, description: string, image: string, categories?: { name: string } }) => !project.featured),
+    ...projects.filter((project: { id: number, title: string, description: string, image: string, featured: boolean, categories?: { name: string } }) => project.featured),
+    ...projects.filter((project: { id: number, title: string, description: string, image: string, featured: boolean, categories?: { name: string } }) => !project.featured),
   ];
   return (
     <section
