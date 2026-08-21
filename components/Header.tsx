@@ -8,6 +8,7 @@ import {
   SunIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const navigation = [
   { name: "About", href: "#about" },
@@ -146,13 +147,12 @@ export default function Header() {
                 <MoonIcon aria-hidden="true" className="size-5" />
               )}
             </button>
-            <a
-              href="#contact"
-              onClick={handleNavigationClick}
+            <Link
+              href="/login"
               className="text-sm/6 font-semibold text-white my-4"
             >
               Login <span aria-hidden="true">&rarr;</span>
-            </a>
+            </Link>
           </div>
         </nav>
         <Dialog
