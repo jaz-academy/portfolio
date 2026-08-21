@@ -1,4 +1,5 @@
-import { profile } from "@/data/portfolio";
+import { getProfileData } from "@/utils/api";
+import { getIconComponent } from "@/utils/iconMapper";
 
 export default async function Feature() {
   const profile = await getProfileData();
@@ -24,10 +25,12 @@ export default async function Feature() {
               </h2>
               <p className="mt-6 text-lg/8 text-gray-300">{profile.longBio}</p>
               <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-400 lg:max-w-none">
-                {profile.summaries.map((summary) => (
+                {profile.summaries.map((summary: any) => {
+                  const Icon = getIconComponent(summary.icon_name);
+                  return (
                   <div key={summary.name} className="relative pl-9">
                     <dt className="inline font-semibold text-white">
-                      <summary.icon
+                      <Icon
                         aria-hidden="true"
                         className="absolute top-1 left-1 size-5 text-indigo-400"
                       />
@@ -35,7 +38,7 @@ export default async function Feature() {
                     </dt>{" "}
                     <dd className="inline">{summary.description}</dd>
                   </div>
-                ))}
+                )})}
               </dl>
             </div>
           </div>

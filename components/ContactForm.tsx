@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import { profile } from "@/data/portfolio";
 
 interface ContactFormData {
   name: string;
@@ -17,9 +16,7 @@ const initialFormData: ContactFormData = {
   message: "",
 };
 
-export default async function ContactForm() {
-  const profile = await getProfileData();
-  if (!profile) return null;
+export default function ContactForm({ emailTo }: { emailTo: string }) {
   const [formData, setFormData] = useState<ContactFormData>(initialFormData);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -61,7 +58,7 @@ export default async function ContactForm() {
       `Nama: ${name}\nEmail: ${email}\n\nPesan:\n${message}`,
     );
 
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
     setFormData(initialFormData);
     setStatus("success");
   };

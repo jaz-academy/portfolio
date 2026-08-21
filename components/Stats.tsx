@@ -1,4 +1,4 @@
-import { profile } from "@/data/portfolio";
+import { getProfileData } from "@/utils/api";
 
 export default async function Stats() {
   const profile = await getProfileData();

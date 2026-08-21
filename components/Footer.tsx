@@ -1,5 +1,6 @@
 import { EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
-import { profile, socialLinks } from "@/data/portfolio";
+import { getProfileData } from "@/utils/api";
+import { getIconComponent } from "@/utils/iconMapper";
 import ContactForm from "@/components/ContactForm";
 
 export default async function Footer() {
@@ -39,11 +40,13 @@ export default async function Footer() {
             </address>
           </div>
           <div className="">
-            <ContactForm />
+            <ContactForm emailTo={profile.email} />
           </div>
         </div>
         <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3 px-[36%] mt-14">
-          {(profile.socialLinks || []).map((link) => (
+          {(profile.socialLinks || []).map((link: any) => {
+            const Icon = getIconComponent(link.icon_name);
+            return (
             <div className="flex flex-col items-center" key={link.id}>
               <div className="rounded-md bg-white/5 py-2 px-4 ring-1 ring-white/10">
                 <span className="text-xl text-white" aria-hidden="true">
@@ -53,12 +56,12 @@ export default async function Footer() {
                     rel="noreferrer"
                     className="hover:text-white"
                   >
-                    {link.icon && <link.icon className="size-5" />}
+                    <Icon className="size-5" />
                   </a>
                 </span>
               </div>
             </div>
-          ))}
+          )})}
         </div>
       </div>
       <div
