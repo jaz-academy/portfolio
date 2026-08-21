@@ -1,29 +1,4 @@
-import {
-  CloudArrowUpIcon,
-  LockClosedIcon,
-  ServerIcon,
-} from "@heroicons/react/20/solid";
-
-const features = [
-  {
-    name: "Creative direction",
-    description:
-      "I develop visual concepts, moodboards, and content plans that give every story a clear point of view.",
-    icon: CloudArrowUpIcon,
-  },
-  {
-    name: "Video editing",
-    description:
-      "From rough cut to final export, I edit short-form and long-form videos with rhythm, pacing, sound, and captions in mind.",
-    icon: LockClosedIcon,
-  },
-  {
-    name: "Social content",
-    description:
-      "I create platform-ready reels, carousels, and behind-the-scenes content that feels native to each audience.",
-    icon: ServerIcon,
-  },
-];
+import { profile } from "@/data/portfolio";
 
 export default function Feature() {
   return (
@@ -45,23 +20,18 @@ export default function Feature() {
               >
                 Stories with a point of view
               </h2>
-              <p className="mt-6 text-lg/8 text-gray-300">
-                As a content creator and video editor, I collaborate from the
-                first idea to the final upload. My work combines visual
-                storytelling, intentional editing, and a practical understanding
-                of how people discover content online.
-              </p>
+              <p className="mt-6 text-lg/8 text-gray-300">{profile.longBio}</p>
               <dl className="mt-10 max-w-xl space-y-8 text-base/7 text-gray-400 lg:max-w-none">
-                {features.map((feature) => (
-                  <div key={feature.name} className="relative pl-9">
+                {profile.summaries.map((summary) => (
+                  <div key={summary.name} className="relative pl-9">
                     <dt className="inline font-semibold text-white">
-                      <feature.icon
+                      <summary.icon
                         aria-hidden="true"
                         className="absolute top-1 left-1 size-5 text-indigo-400"
                       />
-                      {feature.name}
+                      {summary.name}
                     </dt>{" "}
-                    <dd className="inline">{feature.description}</dd>
+                    <dd className="inline">{summary.description}</dd>
                   </div>
                 ))}
               </dl>

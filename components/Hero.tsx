@@ -1,3 +1,5 @@
+import { profile } from "@/data/portfolio";
+
 export default function Hero() {
   return (
     <section id="home" aria-labelledby="hero-heading" className="bg-gray-900">
@@ -17,7 +19,7 @@ export default function Hero() {
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
-              Content Creator &amp; Video Editor.{" "}
+              {profile.role + " "}
               <a href="#contact" className="font-semibold text-indigo-400">
                 <span aria-hidden="true" className="absolute inset-0" />
                 Get in touch <span aria-hidden="true">&rarr;</span>
@@ -29,24 +31,25 @@ export default function Hero() {
               id="hero-heading"
               className="text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl"
             >
-              Raka Aditya
+              {profile.name}
             </h1>
             <p className="mt-8 text-lg font-medium text-pretty text-gray-400 sm:text-xl/8">
-              I turn ideas, stories, and everyday moments into sharp visual
-              content for brands, communities, and personal projects.
+              {profile.shortBio}
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
-                href="#"
+                href={profile.linkCv}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
                 Download my CV
               </a>
               <a
-                href="https://wa.me/6281234567890"
+                href={profile.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm/6 font-semibold text-white"
+                className="text-sm/6 font-semibold text-white cursor-pointer"
               >
                 WA me <span aria-hidden="true">→</span>
               </a>

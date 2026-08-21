@@ -1,4 +1,5 @@
 import { EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
+import { profile, socialLinks } from "@/data/portfolio";
 
 export default function Footer() {
   return (
@@ -26,75 +27,37 @@ export default function Footer() {
                 href="mailto:hello@rakaaditya.com"
               >
                 <EnvelopeIcon aria-hidden="true" className="size-5" />
-                hello@rakaaditya.com
+                {profile.email}
               </a>
               <span className="flex items-center gap-3">
                 <MapPinIcon aria-hidden="true" className="size-5" />
-                Jakarta, Indonesia
+                {profile.location}
               </span>
             </address>
           </div>
           <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3 lg:pt-2 mt-6">
-            <div className="flex flex-col items-start">
-              <div className="rounded-md bg-white/5 py-2 px-4 ring-1 ring-white/10">
-                <span className="text-xl text-white" aria-hidden="true">
-                  in
-                </span>
+            {socialLinks.map((link) => (
+              <div className="flex flex-col items-start" key={link.id}>
+                <div className="rounded-md bg-white/5 py-2 px-4 ring-1 ring-white/10">
+                  <span className="text-xl text-white" aria-hidden="true">
+                    {link.icon && <link.icon className="size-5" />}
+                  </span>
+                </div>
+                <dt className="mt-4 text-base font-semibold text-white">
+                  {link.label}
+                </dt>
+                <dd className="mt-2 text-base/7 text-gray-400">
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="hover:text-white"
+                  >
+                    {link.description}
+                  </a>
+                </dd>
               </div>
-              <dt className="mt-4 text-base font-semibold text-white">
-                LinkedIn
-              </dt>
-              <dd className="mt-2 text-base/7 text-gray-400">
-                <a
-                  href="https://www.linkedin.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white"
-                >
-                  Connect professionally
-                </a>
-              </dd>
-            </div>
-            <div className="flex flex-col items-start">
-              <div className="rounded-md bg-white/5 py-2 px-4 ring-1 ring-white/10">
-                <span className="text-xl text-white" aria-hidden="true">
-                  ◎
-                </span>
-              </div>
-              <dt className="mt-4 text-base font-semibold text-white">
-                Instagram
-              </dt>
-              <dd className="mt-2 text-base/7 text-gray-400">
-                <a
-                  href="https://www.instagram.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white"
-                >
-                  See behind the scenes
-                </a>
-              </dd>
-            </div>
-            <div className="flex flex-col items-start">
-              <div className="rounded-md bg-white/5 py-2 px-5 ring-1 ring-white/10">
-                <span className="text-xl text-white" aria-hidden="true">
-                  t
-                </span>
-              </div>
-              <dt className="mt-4 text-base font-semibold text-white">
-                Tiktok
-              </dt>
-              <dd className="mt-2 text-base/7 text-gray-400">
-                <a
-                  href="https://www.instagram.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:text-white"
-                >
-                  My Daily Life and Work
-                </a>
-              </dd>
-            </div>
+            ))}
           </dl>
         </div>
       </div>

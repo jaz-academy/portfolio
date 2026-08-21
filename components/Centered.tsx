@@ -1,36 +1,4 @@
-import {
-  ArrowPathIcon,
-  CloudArrowUpIcon,
-  FingerPrintIcon,
-  LockClosedIcon,
-} from "@heroicons/react/24/outline";
-
-const features = [
-  {
-    name: "Jaz Academy Multimedia",
-    description:
-      "Pelatihan Multimedia & Content Creator dengan fokus pada produksi video, fotografi dasar, dan komunikasi visual.",
-    icon: CloudArrowUpIcon,
-  },
-  {
-    name: "Udemy • CapCut & Premiere Pro",
-    description:
-      "Kursus editing yang melatih cutting, audio mixing, color correction, caption, dan format video untuk berbagai platform.",
-    icon: LockClosedIcon,
-  },
-  {
-    name: "MCC • Content strategy course",
-    description:
-      "Belajar menyusun content pillar, membuat kalender konten, membaca insight, dan mengembangkan ide yang konsisten.",
-    icon: ArrowPathIcon,
-  },
-  {
-    name: "Jazmedia • Visual storytelling",
-    description:
-      "Mempraktikkan dasar scriptwriting, shot composition, camera movement, dan storytelling untuk video pendek.",
-    icon: FingerPrintIcon,
-  },
-];
+import { learning } from "@/data/portfolio";
 
 export default function Centered() {
   return (
@@ -58,14 +26,16 @@ export default function Centered() {
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-            {features.map((feature) => (
+            {learning.map((feature) => (
               <div key={feature.name} className="relative pl-16">
                 <dt className="text-base/7 font-semibold text-white">
                   <div className="absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-indigo-500">
-                    <feature.icon
-                      aria-hidden="true"
-                      className="size-6 text-white"
-                    />
+                    {feature.icon && (
+                      <feature.icon
+                        aria-hidden="true"
+                        className="size-6 text-white"
+                      />
+                    )}
                   </div>
                   {feature.name}
                 </dt>
