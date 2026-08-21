@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
@@ -14,10 +14,45 @@ const navigation = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 16);
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleNavigationClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    const href = event.currentTarget.getAttribute("href");
+
+    if (!href?.startsWith("#")) return;
+
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    event.preventDefault();
+    target.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      block: "start",
+    });
+    window.history.pushState(null, "", href);
+    setMobileMenuOpen(false);
+  };
 
   return (
     <div className="bg-gray-900">
-      <header className="absolute inset-x-0 top-0 z-50">
+      <header
+        className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ${
+          isScrolled
+            ? "border-white/10 bg-gray-950/15 shadow-lg shadow-black/10 backdrop-blur-xl"
+            : "border-transparent bg-transparent"
+        }`}
+      >
         <nav
           aria-label="Main navigation"
           className="flex items-center justify-between p-6 lg:px-8"
@@ -26,6 +61,7 @@ export default function Header() {
             <a
               href="#home"
               aria-label="Go to home section"
+              onClick={handleNavigationClick}
               className="-m-1.5 p-1.5 text-lg font-semibold text-white"
             >
               Raka<span className="text-indigo-400">.</span>
@@ -49,6 +85,7 @@ export default function Header() {
                 <li key={item.name}>
                   <a
                     href={item.href}
+                    onClick={handleNavigationClick}
                     className="text-sm/6 font-semibold text-white"
                   >
                     {item.name}
@@ -58,7 +95,11 @@ export default function Header() {
             </ul>
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm/6 font-semibold text-white">
+            <a
+              href="#contact"
+              onClick={handleNavigationClick}
+              className="text-sm/6 font-semibold text-white"
+            >
               Login <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
@@ -74,6 +115,7 @@ export default function Header() {
               <a
                 href="#home"
                 aria-label="Go to home section"
+                onClick={handleNavigationClick}
                 className="-m-1.5 p-1.5 text-lg font-semibold text-white"
               >
                 Raka<span className="text-indigo-400">.</span>
@@ -100,7 +142,7 @@ export default function Header() {
                         <a
                           key={item.name}
                           href={item.href}
-                          onClick={() => setMobileMenuOpen(false)}
+                          onClick={handleNavigationClick}
                           className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-white hover:bg-white/5"
                         >
                           {item.name}
@@ -112,6 +154,7 @@ export default function Header() {
                 <div className="py-6">
                   <a
                     href="#contact"
+                    onClick={handleNavigationClick}
                     className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-white hover:bg-white/5"
                   >
                     Let&apos;s work together
