@@ -1,4 +1,5 @@
 import ProjectGallery from "@/components/ProjectGallery";
+import ScrollReveal from "@/components/ScrollReveal";
 
 async function getProjects() {
   try {
@@ -34,16 +35,21 @@ export default async function Bento() {
       className="bg-gray-900 py-24 sm:py-32"
     >
       <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-        <h2 className="text-center text-base/7 font-semibold text-indigo-400">
-          Selected work
-        </h2>
-        <h2
-          id="projects-heading"
-          className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl"
-        >
-          Recent projects and content experiments
-        </h2>
-        <ProjectGallery initialProjects={galleryProjects} />
+        <ScrollReveal direction="down">
+          <h2 className="text-center text-base/7 font-semibold text-indigo-400">
+            Selected work
+          </h2>
+          <h2
+            id="projects-heading"
+            className="mx-auto mt-2 max-w-lg text-center text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl"
+          >
+            Recent projects and content experiments
+          </h2>
+        </ScrollReveal>
+        
+        <ScrollReveal direction="up" delay={0.2}>
+          <ProjectGallery initialProjects={galleryProjects} />
+        </ScrollReveal>
       </div>
     </section>
   );

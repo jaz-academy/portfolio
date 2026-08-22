@@ -1,4 +1,5 @@
 import { getProfileData } from "@/utils/api";
+import ScrollReveal from "@/components/ScrollReveal";
 
 export default async function Stats() {
   const profile = await getProfileData();
@@ -14,16 +15,18 @@ export default async function Stats() {
           Collaboration highlights
         </h2>
         <dl className="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
-          {profile.stats.map((stat: { id: number; name: string; value: string }) => (
-            <div
-              key={stat.id}
+          {profile.stats.map((stat: { id: number; name: string; value: string }, index: number) => (
+            <ScrollReveal 
+              key={stat.id} 
+              direction="up" 
+              delay={index * 0.15}
               className="mx-auto flex max-w-xs flex-col gap-y-4"
             >
               <dt className="text-base/7 text-gray-400">{stat.name}</dt>
               <dd className="order-first text-3xl font-semibold tracking-tight text-white sm:text-5xl">
                 {stat.value}
               </dd>
-            </div>
+            </ScrollReveal>
           ))}
         </dl>
       </div>
