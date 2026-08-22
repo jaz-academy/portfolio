@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 
 import { Analytics } from "@vercel/analytics/react";
 import CommandPalette from "@/components/CommandPalette";
+import Chatbot from "@/components/Chatbot";
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {children}
         <Analytics />
         <CommandPalette />
+        <Chatbot />
       </body>
     </html>
   );
