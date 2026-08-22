@@ -1,4 +1,4 @@
-import ProjectImageCard from "@/components/ProjectImageCard";
+import ProjectGallery from "@/components/ProjectGallery";
 
 async function getProjects() {
   try {
@@ -43,23 +43,7 @@ export default async function Bento() {
         >
           Recent projects and content experiments
         </h2>
-        <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
-          {galleryProjects.map((project, index) => (
-            <ProjectImageCard
-              key={project.id}
-              project={project}
-              className={
-                index === 0
-                  ? "lg:row-span-2 lg:rounded-l-4xl"
-                  : index === 1
-                    ? "max-lg:row-start-1"
-                    : index === 2
-                      ? "max-lg:row-start-3 lg:col-start-2 lg:row-start-2"
-                      : "lg:row-span-2 lg:rounded-r-4xl"
-              }
-            />
-          ))}
-        </div>
+        <ProjectGallery initialProjects={galleryProjects} />
       </div>
     </section>
   );
