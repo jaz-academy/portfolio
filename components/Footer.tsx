@@ -2,6 +2,7 @@ import { EnvelopeIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import { getProfileData } from "@/utils/api";
 import { getIconComponent } from "@/utils/iconMapper";
 import ContactForm from "@/components/ContactForm";
+import VisitorBadge from "@/components/VisitorBadge";
 
 export default async function Footer() {
   const profile = await getProfileData();
@@ -62,6 +63,9 @@ export default async function Footer() {
               </div>
             </div>
           )})}
+        </div>
+        <div className="mt-12 flex justify-center">
+          <VisitorBadge />
         </div>
       </div>
       <div
