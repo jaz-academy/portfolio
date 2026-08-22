@@ -15,6 +15,11 @@ export default function ProjectImageCard({
   className,
 }: ProjectImageCardProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  
+  // Dummy initial likes for demo purposes (e.g., length of title * 3)
+  const initialLikes = (project.title?.length || 5) * 3;
+  const [likes, setLikes] = useState(initialLikes);
 
   return (
     <>
@@ -116,7 +121,41 @@ export default function ProjectImageCard({
                         <p className="whitespace-pre-wrap leading-relaxed">{project.description}</p>
                       </div>
 
-                      <div className="mt-8 flex justify-end">
+                      <div className="mt-8 flex justify-between items-center border-t border-white/10 pt-6">
+                        {/* Optimistic UI Like Button */}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            if (isLiked) {
+                              setIsLiked(false);
+                              setLikes((prev) => prev - 1);
+                            } else {
+                              setIsLiked(true);
+                              setLikes((prev) => prev + 1);
+                            }
+                            // Di sini normalnya kita menembak API (fetch POST), tapi UI sudah update seketika!
+                          }}
+                          className={`group flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+                            isLiked 
+                              ? 'bg-rose-500/20 text-rose-400 ring-1 ring-rose-500/50 hover:bg-rose-500/30' 
+                              : 'bg-white/5 text-gray-400 ring-1 ring-white/10 hover:bg-white/10 hover:text-white'
+                          }`}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill={isLiked ? "currentColor" : "none"}
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className={`size-5 transition-transform group-active:scale-75 ${isLiked ? 'text-rose-500' : ''}`}
+                          >
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                          </svg>
+                          <span>{likes}</span>
+                        </button>
+
                         <button
                           type="button"
                           className="inline-flex justify-center rounded-md bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
