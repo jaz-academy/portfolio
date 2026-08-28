@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { getIconComponent } from "@/utils/iconMapper";
 
 // Menggunakan type any sementara agar tidak bentrok jika type Project di database berbeda sedikit
 interface ProjectImageCardProps {
@@ -20,6 +21,19 @@ export default function ProjectImageCard({
   // Dummy initial likes for demo purposes (e.g., length of title * 3)
   const initialLikes = (project.title?.length || 5) * 3;
   const [likes, setLikes] = useState(initialLikes);
+
+  let projectLinks = [];
+  if (project.link) {
+    try {
+      if (project.link.startsWith('[')) {
+        projectLinks = JSON.parse(project.link);
+      } else {
+        projectLinks = [{ label: "Visit Project", href: project.link, icon_name: "LinkIcon" }];
+      }
+    } catch (e) {
+      projectLinks = [{ label: "Visit Project", href: project.link, icon_name: "LinkIcon" }];
+    }
+  }
 
   const images = typeof project.image === 'string' ? project.image.split(',').map((u: string) => u.trim()).filter(Boolean) : [];
   const primaryImage = images.length > 0 ? images[0] : '';
@@ -248,13 +262,30 @@ export default function ProjectImageCard({
                           <span>{likes}</span>
                         </button>
 
-                        <button
-                          type="button"
-                          className="inline-flex justify-center rounded-md bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          Tutup
-                        </button>
+                        <div className="flex gap-4 items-center">
+                          {projectLinks.map((linkObj: any, idx: number) => {
+                            const Icon = getIconComponent(linkObj.icon_name);
+                            return (
+                              <a
+                                key={idx}
+                                href={linkObj.href.startsWith('http') ? linkObj.href : `https://${linkObj.href}`}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex justify-center items-center gap-2 rounded-md bg-indigo-500 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                              >
+                                <Icon className="size-4" />
+                                {linkObj.label}
+                              </a>
+                            );
+                          })}
+                          <button
+                            type="button"
+                            className="inline-flex justify-center rounded-md bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            Tutup
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -13,35 +13,13 @@ export async function GET(
       return NextResponse.json({ error: 'Missing ID parameter' }, { status: 400 });
     }
 
-    const driveResponse = await getDriveFileStream(id);
-    const contentType = driveResponse.headers['content-type'] || 'application/octet-stream';
-
-    // Convert Node.js Readable stream to Web stream
-    const nodeStream = driveResponse.data;
-    const webStream = new ReadableStream({
-      start(controller) {
-        nodeStream.on('data', (chunk: any) => {
-          controller.enqueue(new Uint8Array(chunk));
-        });
-        nodeStream.on('end', () => {
-          controller.close();
-        });
-        nodeStream.on('error', (err: any) => {
-          controller.error(err);
-        });
-      },
-      cancel() {
-        nodeStream.destroy();
-      }
-    });
-
-    return new NextResponse(webStream, {
-      headers: {
-        'Content-Type': contentType,
-        'Content-Disposition': 'inline',
-        'Cache-Control': 'public, max-age=31536000, immutable',
-      },
-    });
+    // Menggunakan redirect ke Google Drive langsung untuk menghindari:
+    // 1. Limit response size Vercel (maksimal 4.5MB)
+    // 2. Timeout pada Vercel Serverless Functions
+    // 3. Penggunaan bandwidth server yang berlebihan
+    const driveUrl = `https://drive.google.com/uc?export=view&id=${id}`;
+    
+    return NextResponse.redirect(driveUrl, 302);
   } catch (error: any) {
     console.error('Drive file fetch error:', error.message);
     return NextResponse.json({ error: 'Failed to fetch file' }, { status: 500 });

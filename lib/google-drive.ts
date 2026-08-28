@@ -58,6 +58,19 @@ export async function uploadFileToDrive(file: File): Promise<string> {
     throw new Error('Failed to upload file to Google Drive');
   }
 
+  // Pastikan file dapat diakses publik agar bisa dirender di Vercel via direct link
+  try {
+    await drive.permissions.create({
+      fileId: response.data.id,
+      requestBody: {
+        role: 'reader',
+        type: 'anyone',
+      },
+    });
+  } catch (permError) {
+    console.error('Warning: Failed to set public permission on file', permError);
+  }
+
   return response.data.id;
 }
 
