@@ -39,33 +39,38 @@ export default async function Footer() {
                 {profile.location}
               </span>
             </address>
+            <div className="mt-8 flex justify-left">
+              <VisitorBadge />
+            </div>
           </div>
           <div className="">
             <ContactForm emailTo={profile.email} />
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-3 px-[36%] mt-14">
-          {(profile.socialLinks || []).map((link: { id: number, href: string, icon_name: string }) => {
-            const Icon = getIconComponent(link.icon_name);
-            return (
-            <div className="flex flex-col items-center" key={link.id}>
-              <div className="rounded-md bg-white/5 py-2 px-4 ring-1 ring-white/10">
-                <span className="text-xl text-white" aria-hidden="true">
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-white"
-                  >
-                    <Icon className="size-5" />
-                  </a>
-                </span>
-              </div>
-            </div>
-          )})}
-        </div>
-        <div className="mt-12 flex justify-center">
-          <VisitorBadge />
+        <div className="flex justify-center gap-10 px-auto mt-18">
+          {(profile.socialLinks || []).map(
+            (link: { id: number; href: string; icon_name: string; label?: string; description?: string }) => {
+              const Icon = getIconComponent(link.icon_name);
+              return (
+                <div className="flex flex-col items-center" key={link.id}>
+                  <div className="rounded-md bg-white/5 py-2 px-4 ring-1 ring-white/10">
+                    <span className="text-xl text-white" aria-hidden="true">
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="hover:text-white"
+                      >
+                        <Icon className="size-5" />
+                      </a>
+                    </span>
+                  </div>
+                  <p className="mt-3">{link.label}</p>
+                  <small className="hidden md:block">{link.description}</small>
+                </div>
+              );
+            },
+          )}
         </div>
       </div>
       <div

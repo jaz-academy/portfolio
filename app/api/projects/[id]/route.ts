@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
+import { deleteFileFromDrive } from '@/lib/google-drive';
 
 export async function GET(
   request: Request,
@@ -48,6 +49,39 @@ export async function PATCH(
     const { id } = await params;
     const body = await request.json();
 
+    // Check existing image to delete if it has changed
+    if (body.image || body.video !== undefined) {
+      const { data: existingProject } = await supabase
+        .from('projects')
+        .select('image, video')
+        .eq('id', id)
+        .single();
+
+      if (existingProject) {
+        if (body.image !== undefined && existingProject.image && existingProject.image !== body.image) {
+          const oldImages = existingProject.image.split(',').map((u: string) => u.trim());
+          const newImages = body.image ? body.image.split(',').map((u: string) => u.trim()) : [];
+          const imagesToDelete = oldImages.filter((img: string) => !newImages.includes(img) && img.startsWith('/api/drive/'));
+          
+          for (const img of imagesToDelete) {
+            const fileId = img.split('/api/drive/')[1];
+            if (fileId) {
+              await deleteFileFromDrive(fileId);
+            }
+          }
+        }
+        
+        if (body.video !== undefined && existingProject.video && existingProject.video !== body.video) {
+          if (existingProject.video.startsWith('/api/drive/')) {
+            const fileId = existingProject.video.split('/api/drive/')[1];
+            if (fileId) {
+              await deleteFileFromDrive(fileId);
+            }
+          }
+        }
+      }
+    }
+
     const { data: updatedProject, error } = await supabase
       .from('projects')
       .update(body)
@@ -74,6 +108,32 @@ export async function DELETE(
   try {
     const supabase = await createClient();
     const { id } = await params;
+
+    // Get existing image to delete from drive
+    const { data: existingProject } = await supabase
+      .from('projects')
+      .select('image, video')
+      .eq('id', id)
+      .single();
+
+    if (existingProject) {
+      if (existingProject.image) {
+        const imagesToDelete = existingProject.image.split(',').map((u: string) => u.trim()).filter((img: string) => img.startsWith('/api/drive/'));
+        for (const img of imagesToDelete) {
+          const fileId = img.split('/api/drive/')[1];
+          if (fileId) {
+            await deleteFileFromDrive(fileId);
+          }
+        }
+      }
+      
+      if (existingProject.video && existingProject.video.startsWith('/api/drive/')) {
+        const fileId = existingProject.video.split('/api/drive/')[1];
+        if (fileId) {
+          await deleteFileFromDrive(fileId);
+        }
+      }
+    }
 
     const { error } = await supabase
       .from('projects')

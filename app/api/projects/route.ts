@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     
     // Menerima data dari body request
-    const { title, description, category_id, image, image_alt, year, featured } = body;
+    const { title, description, category_id, image, video, image_alt, year, featured } = body;
 
     // Validasi input sederhana
     if (!title || !description || !category_id || !image || !year) {
@@ -58,6 +58,7 @@ export async function POST(request: Request) {
           description,
           category_id,
           image,
+          video,
           image_alt: image_alt || title,
           year,
           featured: featured || false,

@@ -10,6 +10,7 @@ export async function getProfileData() {
     if (json.data) {
       return {
         ...json.data,
+        image: json.data.image || '',
         linkCv: json.data.link_cv,
         shortBio: json.data.short_bio,
         longBio: json.data.long_bio,

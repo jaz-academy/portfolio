@@ -21,6 +21,36 @@ export default function ProjectImageCard({
   const initialLikes = (project.title?.length || 5) * 3;
   const [likes, setLikes] = useState(initialLikes);
 
+  const images = typeof project.image === 'string' ? project.image.split(',').map((u: string) => u.trim()).filter(Boolean) : [];
+  const primaryImage = images.length > 0 ? images[0] : '';
+  
+  const hasVideo = !!project.video;
+  const totalSlides = (hasVideo ? 1 : 0) + images.length;
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  };
+  const prevSlide = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  let isYoutube = false;
+  let youtubeEmbedUrl = "";
+  if (hasVideo) {
+    if (project.video.includes('youtube.com') || project.video.includes('youtu.be')) {
+      isYoutube = true;
+      const videoIdMatch = project.video.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+      if (videoIdMatch && videoIdMatch[1]) {
+        youtubeEmbedUrl = `https://www.youtube.com/embed/${videoIdMatch[1]}?autoplay=1&mute=1`;
+      } else {
+        youtubeEmbedUrl = project.video;
+      }
+    }
+  }
+
   return (
     <>
       {/* Kartu Gambar yang bisa diklik */}
@@ -30,7 +60,7 @@ export default function ProjectImageCard({
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={project.image}
+          src={primaryImage}
           alt={project.imageAlt || project.title}
           className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
         />
@@ -51,7 +81,11 @@ export default function ProjectImageCard({
 
       {/* Modal Dialog */}
       <Transition appear show={isOpen}>
-        <Dialog as="div" className="relative z-50" onClose={() => setIsOpen(false)}>
+        <Dialog as="div" className="relative z-50" onClose={() => {
+          setIsOpen(false);
+          // reset carousel to first slide on close
+          setTimeout(() => setCurrentSlide(0), 300);
+        }}>
           {/* Latar Belakang Gelap */}
           <TransitionChild
             enter="ease-out duration-300"
@@ -90,16 +124,74 @@ export default function ProjectImageCard({
 
                   {/* Konten Modal */}
                   <div className="flex flex-col">
-                    {/* Gambar Header Modal */}
-                    <div className="relative h-64 sm:h-96 w-full">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img 
-                        src={project.image} 
-                        alt={project.title} 
-                        className="absolute inset-0 size-full object-cover"
-                      />
+                    {/* Gambar Header Modal Carousel */}
+                    <div className="relative h-64 sm:h-96 w-full bg-black group">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        {(() => {
+                           const isVideoSlide = hasVideo && currentSlide === 0;
+                           const imageIndex = hasVideo ? currentSlide - 1 : currentSlide;
+                           
+                           if (isVideoSlide) {
+                             return isYoutube ? (
+                               <iframe
+                                 src={youtubeEmbedUrl}
+                                 allow="autoplay; encrypted-media"
+                                 allowFullScreen
+                                 className="absolute inset-0 size-full"
+                               />
+                             ) : (
+                               <video
+                                 src={project.video}
+                                 autoPlay
+                                 loop
+                                 muted
+                                 playsInline
+                                 className="absolute inset-0 size-full object-cover"
+                               />
+                             );
+                           } else {
+                             return (
+                               /* eslint-disable-next-line @next/next/no-img-element */
+                               <img 
+                                 src={images[imageIndex]} 
+                                 alt={`${project.title} - ${imageIndex + 1}`} 
+                                 className="absolute inset-0 size-full object-cover"
+                               />
+                             );
+                           }
+                        })()}
+                      </div>
+                      
+                      {/* Controls */}
+                      {totalSlides > 1 && (
+                        <>
+                          <button onClick={prevSlide} className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <svg className="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                          </button>
+                          <button onClick={nextSlide} className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <svg className="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                            {Array.from({ length: totalSlides }).map((_, idx) => (
+                              <button
+                                key={idx}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setCurrentSlide(idx);
+                                }}
+                                className={`h-2 w-2 rounded-full ${idx === currentSlide ? 'bg-white' : 'bg-white/50'}`}
+                              />
+                            ))}
+                          </div>
+                        </>
+                      )}
+
                       {/* Gradient Overlay bawah gambar agar teks terlihat jelas jika diletakkan di atas */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+                      {(!hasVideo || currentSlide > 0) && <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent pointer-events-none"></div>}
                     </div>
 
                     {/* Deskripsi */}

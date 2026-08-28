@@ -100,9 +100,9 @@ export default function Header() {
               href="#home"
               aria-label="Go to home section"
               onClick={handleNavigationClick}
-              className="-m-1.5 p-1.5 text-lg font-semibold text-white"
+              className="-m-1.5 p-1.5 text-lg font-semibold text-white ml-2"
             >
-              Raka<span className="text-indigo-400">.</span>
+              Ijaz<span className="text-indigo-400">.</span>
             </a>
           </div>
           <div className="flex lg:hidden">
@@ -139,7 +139,7 @@ export default function Header() {
               aria-label={
                 isDarkMode ? "Aktifkan light mode" : "Aktifkan dark mode"
               }
-              className="mr-6 rounded-md px-4 text-white transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+              className="rounded-md px-3 py-2 text-white transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
             >
               {isDarkMode ? (
                 <SunIcon aria-hidden="true" className="size-5" />
@@ -147,12 +147,6 @@ export default function Header() {
                 <MoonIcon aria-hidden="true" className="size-5" />
               )}
             </button>
-            <Link
-              href="/login"
-              className="text-sm/6 font-semibold text-white my-4"
-            >
-              Login <span aria-hidden="true">&rarr;</span>
-            </Link>
           </div>
         </nav>
         <Dialog
@@ -169,7 +163,7 @@ export default function Header() {
                 onClick={handleNavigationClick}
                 className="-m-1.5 p-1.5 text-lg font-semibold text-white"
               >
-                Raka<span className="text-indigo-400">.</span>
+                Ijaz<span className="text-indigo-400">.</span>
               </a>
               <button
                 type="button"
