@@ -15,31 +15,41 @@ export default async function Centered() {
         <ScrollReveal direction="up">
           <div className="mx-auto max-w-2xl lg:text-center">
             <p className="text-base/7 font-semibold text-indigo-400">
-              Education & learning
+              Education & Learning
             </p>
             <h2
               id="skills-heading"
               className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-white sm:text-5xl lg:text-balance"
             >
-              Skills built through school and practice
+              Skills and Practices
             </h2>
             <p className="mt-6 text-lg/8 text-gray-300">
-              I am currently a multimedia student, building a practical foundation
-              in visual communication while sharpening my craft through courses,
-              personal projects, and collaborative productions.
+              I used to learn through the internet, joining courses and
+              communities for building a practical visual communication and
+              sharpening my skills.
             </p>
           </div>
         </ScrollReveal>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-4">
-            {learning.map((feature: { name: string, description: string, icon_name: string }, index: number) => {
-              return (
-              <InteractiveSkillCard 
-                key={feature.name} 
-                feature={feature} 
-                index={index} 
-              />
-            )})}
+            {learning.map(
+              (
+                feature: {
+                  name: string;
+                  description: string;
+                  icon_name: string;
+                },
+                index: number,
+              ) => {
+                return (
+                  <InteractiveSkillCard
+                    key={feature.name}
+                    feature={feature}
+                    index={index}
+                  />
+                );
+              },
+            )}
           </dl>
         </div>
       </div>

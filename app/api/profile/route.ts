@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
+import { deleteFileFromDrive } from '@/lib/google-drive';
 
 export async function GET() {
   try {
@@ -23,6 +24,34 @@ export async function PATCH(request: Request) {
   try {
     const supabase = await createClient();
     const body = await request.json();
+
+    if (body.image || body.link_cv) {
+      const { data: existingProfile } = await supabase
+        .from('profile')
+        .select('image, link_cv')
+        .eq('id', 1)
+        .single();
+
+      if (existingProfile) {
+        if (body.image && existingProfile.image && existingProfile.image !== body.image) {
+          if (existingProfile.image.startsWith('/api/drive/')) {
+            const fileId = existingProfile.image.split('/api/drive/')[1];
+            if (fileId) {
+              await deleteFileFromDrive(fileId);
+            }
+          }
+        }
+        
+        if (body.link_cv && existingProfile.link_cv && existingProfile.link_cv !== body.link_cv) {
+          if (existingProfile.link_cv.startsWith('/api/drive/')) {
+            const fileId = existingProfile.link_cv.split('/api/drive/')[1];
+            if (fileId) {
+              await deleteFileFromDrive(fileId);
+            }
+          }
+        }
+      }
+    }
 
     const { data, error } = await supabase
       .from('profile')

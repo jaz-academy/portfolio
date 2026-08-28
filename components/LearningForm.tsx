@@ -2,11 +2,13 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import IconPicker from './IconPicker'
 
 export default function LearningForm({ initialData }: { initialData?: { id: number; name: string; description: string; icon_name: string } }) {
   const router = useRouter()
   const isEdit = !!initialData
   const [loading, setLoading] = useState(false)
+  const [iconName, setIconName] = useState(initialData?.icon_name || 'AcademicCapIcon')
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -69,15 +71,11 @@ export default function LearningForm({ initialData }: { initialData?: { id: numb
       </div>
 
       <div>
-        <label className="block text-sm font-medium leading-6 text-gray-300">Nama Icon (Heroicons Outline)</label>
-        <input
-          required
-          type="text"
-          name="icon_name"
-          defaultValue={initialData?.icon_name || 'AcademicCapIcon'}
-          className="mt-2 block w-full rounded-md border-0 bg-white/5 py-1.5 px-3 text-white ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
-        />
-        <p className="mt-2 text-xs text-gray-400">Contoh: CloudArrowUpIcon, LockClosedIcon, FilmIcon</p>
+        <label className="block text-sm font-medium leading-6 text-gray-300">Ikon Edukasi</label>
+        <div className="mt-2 w-64">
+          <IconPicker value={iconName} onChange={setIconName} />
+          <input type="hidden" name="icon_name" value={iconName} />
+        </div>
       </div>
 
       <div className="flex justify-end gap-x-4 border-t border-white/10 pt-6">

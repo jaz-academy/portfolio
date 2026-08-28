@@ -3,7 +3,11 @@
 import { useState, useRef, useEffect } from "react";
 import { useChat } from "@ai-sdk/react";
 import ReactMarkdown from "react-markdown";
-import { ChatBubbleLeftRightIcon, XMarkIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import {
+  ChatBubbleLeftRightIcon,
+  XMarkIcon,
+  PaperAirplaneIcon,
+} from "@heroicons/react/24/outline";
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +25,7 @@ export default function Chatbot() {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!localInput.trim()) return;
-    
+
     if (sendMessage) {
       sendMessage({ text: localInput });
     }
@@ -34,8 +38,8 @@ export default function Chatbot() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`flex size-14 items-center justify-center rounded-full shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-900 ${
-          isOpen 
-            ? "bg-gray-800 text-gray-400 hover:text-white" 
+          isOpen
+            ? "bg-gray-800 text-gray-400 hover:text-white"
             : "bg-indigo-500 text-white hover:bg-indigo-400 hover:scale-110"
         }`}
       >
@@ -49,21 +53,28 @@ export default function Chatbot() {
       {/* Jendela Chat */}
       <div
         className={`absolute bottom-20 left-0 w-[90vw] sm:w-[400px] h-[500px] max-h-[70vh] flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-gray-900 shadow-2xl ring-1 ring-white/5 transition-all duration-300 origin-bottom-left ${
-          isOpen ? "scale-100 opacity-100" : "scale-0 opacity-0 pointer-events-none"
+          isOpen
+            ? "scale-100 opacity-100"
+            : "scale-0 opacity-0 pointer-events-none"
         }`}
       >
         {/* Header */}
         <div className="bg-indigo-500 p-4 text-white">
           <h3 className="font-semibold">Ask Me Anything</h3>
-          <p className="text-xs text-indigo-100">Saya adalah asisten AI portfolio ini.</p>
+          <p className="text-xs text-indigo-100">
+            Saya adalah asisten AI portfolio ini.
+          </p>
         </div>
 
         {/* Area Pesan */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-900/50">
+        <div className="flex-1 overflow-y-auto scrollbar-none p-4 space-y-4 bg-gray-900/50">
           {messages.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center text-center text-gray-500">
               <ChatBubbleLeftRightIcon className="size-10 mb-2 opacity-20" />
-              <p className="text-sm">Halo! Ada yang ingin ditanyakan tentang saya, proyek, atau skill saya?</p>
+              <p className="text-sm">
+                Halo! Ada yang ingin ditanyakan tentang saya, proyek, atau skill
+                saya?
+              </p>
             </div>
           ) : (
             messages.map((m) => (
@@ -79,7 +90,14 @@ export default function Chatbot() {
                   }`}
                 >
                   <div className="prose prose-invert prose-sm">
-                    <ReactMarkdown>{(m as any).text || (m as any).parts?.map((p: any) => p.text || '').join('') || (m as any).content || ""}</ReactMarkdown>
+                    <ReactMarkdown>
+                      {(m as any).text ||
+                        (m as any).parts
+                          ?.map((p: any) => p.text || "")
+                          .join("") ||
+                        (m as any).content ||
+                        ""}
+                    </ReactMarkdown>
                   </div>
                 </div>
               </div>

@@ -12,6 +12,15 @@ function toTitleCase(str: string): string {
 export default async function Hero() {
   const profile = await getProfileData();
   if (!profile) return null;
+  
+  let cvUrl = profile.linkCv;
+  if (cvUrl?.startsWith('/api/drive/')) {
+    const fileId = cvUrl.split('/api/drive/')[1];
+    if (fileId) {
+      cvUrl = `https://drive.google.com/file/d/${fileId}/view`;
+    }
+  }
+
   return (
     <section id="home" aria-labelledby="hero-heading" className="bg-gray-900">
       <div className="relative isolate px-6 pt-14 lg:px-8">
@@ -32,13 +41,9 @@ export default async function Hero() {
           delay={0.2}
           className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56"
         >
-          <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+          <div className="mb-8 flex justify-center">
             <div className="relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
-              {toTitleCase(profile.role) + " "}
-              <a href="#contact" className="font-semibold text-indigo-400">
-                <span aria-hidden="true" className="absolute inset-0" />
-                Get in touch <span aria-hidden="true">&rarr;</span>
-              </a>
+              {toTitleCase(profile.role)}
             </div>
           </div>
           <div className="text-center">
@@ -53,7 +58,7 @@ export default async function Hero() {
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
-                href={profile.linkCv}
+                href={cvUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"

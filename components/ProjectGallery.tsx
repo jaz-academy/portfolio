@@ -35,21 +35,30 @@ export default function ProjectGallery({ initialProjects }: ProjectGalleryProps)
 
       <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
         {filteredProjects.length > 0 ? (
-          filteredProjects.map((project, index) => (
-            <ProjectImageCard
-              key={project.id}
-              project={project}
-              className={
-                index === 0
-                  ? "lg:row-span-2 lg:rounded-l-4xl"
-                  : index === 1
-                    ? "max-lg:row-start-1"
-                    : index === 2
-                      ? "max-lg:row-start-3 lg:col-start-2 lg:row-start-2"
-                      : "lg:row-span-2 lg:rounded-r-4xl"
-              }
-            />
-          ))
+          filteredProjects.map((project, index) => {
+            let layoutClass = "";
+            if (index === 0) {
+              layoutClass = "lg:row-span-2 lg:rounded-l-4xl";
+            } else if (index === 1) {
+              layoutClass = "max-lg:row-start-1 lg:col-start-2 lg:row-start-1";
+            } else if (index === 2) {
+              layoutClass = "max-lg:row-start-3 lg:col-start-2 lg:row-start-2";
+            } else if (index === 3) {
+              layoutClass = "lg:col-start-3 lg:row-start-1 lg:rounded-tr-4xl";
+            } else if (index === 4) {
+              layoutClass = "lg:col-start-3 lg:row-start-2 lg:rounded-br-4xl";
+            } else {
+              layoutClass = "rounded-lg"; // default fallback if more than 5
+            }
+
+            return (
+              <ProjectImageCard
+                key={project.id}
+                project={project}
+                className={layoutClass}
+              />
+            );
+          })
         ) : (
           <div className="col-span-full py-12 text-center text-gray-400">
             No projects found matching "{searchQuery}"
