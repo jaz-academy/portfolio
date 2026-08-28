@@ -76,6 +76,7 @@ export default function ProjectImageCard({
         <img
           src={primaryImage}
           alt={project.imageAlt || project.title}
+          referrerPolicy="no-referrer"
           className="absolute inset-0 size-full object-cover transition duration-500 group-hover:scale-105"
         />
         
@@ -169,6 +170,7 @@ export default function ProjectImageCard({
                                <img 
                                  src={images[imageIndex]} 
                                  alt={`${project.title} - ${imageIndex + 1}`} 
+                                 referrerPolicy="no-referrer"
                                  className="absolute inset-0 size-full object-cover"
                                />
                              );

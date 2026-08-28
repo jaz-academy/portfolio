@@ -87,6 +87,7 @@ export default async function ProjectDetailPage({
 <img
             src={project.image}
             alt={project.imageAlt}
+            referrerPolicy="no-referrer"
             className="h-auto max-h-[70vh] w-full object-cover"
           />
           <figcaption className="sr-only">{project.imageAlt}</figcaption>

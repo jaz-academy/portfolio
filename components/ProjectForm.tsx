@@ -321,6 +321,7 @@ export default function ProjectForm({
                 key={i}
                 src={src}
                 alt={`Preview ${i}`}
+                referrerPolicy="no-referrer"
                 className="h-32 w-auto object-cover rounded shrink-0"
               />
             ))}

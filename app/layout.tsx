@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your Name | Portfolio",
-  description: "Portfolio pribadi Your Name.",
+  title: "Ijaz • Portfolio",
+  description: "Interactive Portfolio Hijjaz Abdullah.",
 };
 
 import { Analytics } from "@vercel/analytics/react";
