@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import IconPicker from "./IconPicker";
 
 export default function ProjectForm({
   initialData,
@@ -13,6 +14,7 @@ export default function ProjectForm({
     description: string;
     image: string;
     video?: string;
+    link?: string;
     year: number;
     category_id: number;
     featured: boolean;
@@ -24,6 +26,21 @@ export default function ProjectForm({
   const [loading, setLoading] = useState(false);
   const existingImages = initialData?.image ? initialData.image.split(',').map(u => u.trim()) : [];
   const [previewImages, setPreviewImages] = useState<string[]>(existingImages);
+
+  let initialLinks = [];
+  try {
+    if (initialData?.link) {
+      if (initialData.link.startsWith('[')) {
+        initialLinks = JSON.parse(initialData.link);
+      } else {
+        // Fallback for old single link
+        initialLinks = [{ id: Date.now(), label: "Visit Project", href: initialData.link, icon_name: "LinkIcon" }];
+      }
+    }
+  } catch (e) {
+    initialLinks = [{ id: Date.now(), label: "Visit Project", href: initialData?.link || "", icon_name: "LinkIcon" }];
+  }
+  const [projectLinks, setProjectLinks] = useState<any[]>(initialLinks);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -104,6 +121,7 @@ export default function ProjectForm({
       category_id: Number(formData.get("category_id")),
       image: imageUrl,
       video: videoUrl,
+      link: projectLinks.length > 0 ? JSON.stringify(projectLinks) : "",
       year: Number(formData.get("year")),
       featured: formData.get("featured") === "on",
     };
@@ -162,6 +180,101 @@ export default function ProjectForm({
           defaultValue={initialData?.description}
           className="mt-2 block w-full rounded-md border-0 bg-white/5 py-1.5 px-3 text-white ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
         />
+      </div>
+
+      {/* Project Links */}
+      <div className="space-y-4 pt-4 border-t border-white/10">
+        <div className="flex justify-between items-center">
+          <label className="block text-sm font-medium leading-6 text-gray-300">
+            Project Links (Opsional)
+          </label>
+          <button
+            type="button"
+            onClick={() =>
+              setProjectLinks([
+                ...projectLinks,
+                {
+                  id: Date.now(),
+                  href: "",
+                  label: "Visit Link",
+                  icon_name: "LinkIcon",
+                },
+              ])
+            }
+            className="text-xs bg-indigo-500 hover:bg-indigo-400 text-white px-2 py-1 rounded"
+          >
+            Add Link
+          </button>
+        </div>
+        <p className="text-xs text-gray-400">
+          Tambahkan link eksternal terkait project ini (Instagram, YouTube, Website, dll).
+        </p>
+        
+        {projectLinks.map((item, index) => (
+          <div
+            key={index}
+            className="flex gap-4 items-start bg-white/5 p-4 rounded-md relative pt-8"
+          >
+            <button
+              type="button"
+              onClick={() =>
+                setProjectLinks(projectLinks.filter((_, i) => i !== index))
+              }
+              className="absolute top-2 right-2 text-red-400 hover:text-red-300 text-xs font-medium"
+            >
+              Remove
+            </button>
+            <div className="w-48 shrink-0">
+              <label className="block text-xs text-gray-400 mb-1">Icon</label>
+              <IconPicker
+                value={item.icon_name}
+                onChange={(val) => {
+                  const newArr = [...projectLinks];
+                  newArr[index].icon_name = val;
+                  setProjectLinks(newArr);
+                }}
+              />
+            </div>
+            <div className="flex-1 space-y-3">
+              <div className="flex gap-4">
+                <div className="flex-1">
+                  <label className="block text-xs text-gray-400 mb-1">
+                    Label
+                  </label>
+                  <input
+                    required
+                    type="text"
+                    value={item.label}
+                    placeholder="e.g. Website, Instagram"
+                    onChange={(e) => {
+                      const newArr = [...projectLinks];
+                      newArr[index].label = e.target.value;
+                      setProjectLinks(newArr);
+                    }}
+                    className="block w-full rounded-md border-0 bg-gray-900 py-1.5 px-3 text-white ring-1 ring-inset ring-white/10 sm:text-sm"
+                  />
+                </div>
+                <div className="flex-1">
+                  <label className="block text-xs text-gray-400 mb-1">
+                    URL
+                  </label>
+                  <input
+                    required
+                    type="url"
+                    value={item.href}
+                    placeholder="https://..."
+                    onChange={(e) => {
+                      const newArr = [...projectLinks];
+                      newArr[index].href = e.target.value;
+                      setProjectLinks(newArr);
+                    }}
+                    className="block w-full rounded-md border-0 bg-gray-900 py-1.5 px-3 text-white ring-1 ring-inset ring-white/10 sm:text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">
