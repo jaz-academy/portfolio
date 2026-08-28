@@ -258,6 +258,7 @@ export default function ProfileForm({
               <img
                 src={previewImage}
                 alt="Profile image preview"
+                referrerPolicy="no-referrer"
                 className="h-32 w-auto object-cover rounded"
               />
             </div>
